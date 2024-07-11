@@ -3,7 +3,7 @@ extends RigidBody3D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -13,3 +13,7 @@ func _process(delta):
 	input.z = Input.get_axis("move_forward", "move_backward")
 	
 	apply_central_force(input * 1200.0 * delta)
+
+	# Press Esc and mouse will appear again.
+	if Input.is_action_just_pressed("ui_cancel"):
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
