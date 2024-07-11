@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://bg1m4of3448o0"]
+[gd_scene load_steps=9 format=3 uid="uid://bg1m4of3448o0"]
 
 [ext_resource type="PackedScene" uid="uid://ccdtnjp2beosc" path="res://Scenes/Characters/player.tscn" id="1_o2s5d"]
+[ext_resource type="Texture2D" uid="uid://c57phm1recs6v" path="res://Assets/Textures/cobblestone_floor_07_diff_4k.jpg" id="1_uu8i1"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_xg2fu"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -16,12 +17,17 @@ tonemap_mode = 2
 glow_enabled = true
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_cmwqt"]
-size = Vector2(10, 10)
+size = Vector2(100, 100)
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_opwht"]
 data = PackedVector3Array(5, 0, 5, -5, 0, 5, 5, 0, -5, -5, 0, 5, -5, 0, -5, 5, 0, -5)
 
-[node name="Node3D" type="Node3D"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w2m1p"]
+albedo_texture = ExtResource("1_uu8i1")
+uv1_triplanar = true
+uv1_world_triplanar = true
+
+[node name="World" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_28aqw")
@@ -31,12 +37,18 @@ transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75
 shadow_enabled = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 2.08165e-12, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("PlaneMesh_cmwqt")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
 shape = SubResource("ConcavePolygonShape3D_opwht")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="MeshInstance3D/StaticBody3D/CollisionShape3D"]
+transform = Transform3D(10, 0, 0, 0, 1, 0, 0, 0, 10, 0, 3.97787e+08, 0)
+material = SubResource("StandardMaterial3D_w2m1p")
 
 [node name="Player" parent="." instance=ExtResource("1_o2s5d")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.08109, 0.0582628)
