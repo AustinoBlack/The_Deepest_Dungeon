@@ -22,4 +22,4 @@ shape = SubResource("ConvexPolygonShape3D_lveg8")
 [node name="PitchPivot" type="Node3D" parent="TwistPivot"]
 
 [node name="Camera3D" type="Camera3D" parent="TwistPivot/PitchPivot"]
-transform = Transform3D(0.707107, -0.541675, 0.454519, 2.24196e-16, 0.642788, 0.766044, -0.707107, -0.541675, 0.454519, 5, 9, 5)
+transform = Transform3D(1, -6.14796e-16, 2.25592e-16, 4.91896e-16, 0.932563, 0.361006, -4.32324e-16, -0.361006, 0.932563, 1.29143, 2.1548, 2.44504)
