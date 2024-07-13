@@ -1,4 +1,4 @@
-## Assets FileTree Overview
+## Assets Directory Overview
 
 The Assets folder is responsible for holding all the various pieces that will 
 make up our game. Things like: models, music files, sounds, textures, etc.
