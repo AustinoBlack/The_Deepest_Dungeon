@@ -20,8 +20,8 @@ func _process(delta):
 	apply_central_force(twist_pivot.basis * input * 1200.0 * delta)
 
 	# Press Esc and mouse will appear again.
-	if Input.is_action_just_pressed("ui_cancel"):
-		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	#if Input.is_action_just_pressed("ui_cancel"):
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	
 	$TwistPivot.rotate_y(twist_input)
 	
