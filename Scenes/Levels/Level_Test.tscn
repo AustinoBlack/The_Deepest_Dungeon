@@ -51,5 +51,7 @@ transform = Transform3D(10, 0, 0, 0, 1, 0, 0, 0, 10, 0, 3.97787e+08, 0)
 material = SubResource("StandardMaterial3D_w2m1p")
 
 [node name="Player" parent="." instance=ExtResource("1_o2s5d")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.08109, 0.0582628)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.623282, 0.0582628)
 linear_damp = 3.0
+
+[node name="GridMap" type="GridMap" parent="."]
