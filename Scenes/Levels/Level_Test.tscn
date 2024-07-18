@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://bg1m4of3448o0"]
 
 [ext_resource type="PackedScene" uid="uid://ccdtnjp2beosc" path="res://Scenes/Characters/player.tscn" id="1_o2s5d"]
-[ext_resource type="Texture2D" uid="uid://c57phm1recs6v" path="res://Assets/Textures/cobblestone_floor_07_diff_4k.jpg" id="1_uu8i1"]
+[ext_resource type="Texture2D" uid="uid://o1vuacoy0gn8" path="res://Assets/Textures/Checker-grid.png" id="1_t8g4f"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_xg2fu"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -23,7 +23,7 @@ size = Vector2(100, 100)
 data = PackedVector3Array(5, 0, 5, -5, 0, 5, 5, 0, -5, -5, 0, 5, -5, 0, -5, 5, 0, -5)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w2m1p"]
-albedo_texture = ExtResource("1_uu8i1")
+albedo_texture = ExtResource("1_t8g4f")
 uv1_triplanar = true
 uv1_world_triplanar = true
 
@@ -51,5 +51,7 @@ transform = Transform3D(10, 0, 0, 0, 1, 0, 0, 0, 10, 0, 3.97787e+08, 0)
 material = SubResource("StandardMaterial3D_w2m1p")
 
 [node name="Player" parent="." instance=ExtResource("1_o2s5d")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.08109, 0.0582628)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.623282, 0.0582628)
 linear_damp = 3.0
+
+[node name="GridMap" type="GridMap" parent="."]
