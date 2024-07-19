@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bg1m4of3448o0"]
+[gd_scene load_steps=10 format=3 uid="uid://bg1m4of3448o0"]
 
 [ext_resource type="PackedScene" uid="uid://ccdtnjp2beosc" path="res://Scenes/Characters/player.tscn" id="1_o2s5d"]
 [ext_resource type="Texture2D" uid="uid://o1vuacoy0gn8" path="res://Assets/Textures/Checker-grid.png" id="1_t8g4f"]
@@ -27,6 +27,8 @@ albedo_texture = ExtResource("1_t8g4f")
 uv1_triplanar = true
 uv1_world_triplanar = true
 
+[sub_resource type="SphereMesh" id="SphereMesh_pct6f"]
+
 [node name="World" type="Node3D"]
 transform = Transform3D(0.707107, 1.60554e-24, 0.707107, 3.48787e-16, 1, -3.48787e-16, -0.707107, 4.93259e-16, 0.707107, 0, 0, 0)
 
@@ -38,14 +40,14 @@ transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75
 shadow_enabled = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.707107, 1.94808e-35, 0.707107, 3.48787e-16, 2.08165e-12, -3.48787e-16, -0.707107, 1.02679e-27, 0.707107, 0, 0, 0)
+transform = Transform3D(1, -7.26052e-28, 3.48787e-16, 3.48787e-16, 2.08165e-12, -3.48787e-16, -3.48787e-16, 7.26052e-28, 1, 0, 0, 0)
 mesh = SubResource("PlaneMesh_cmwqt")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
-transform = Transform3D(0.707107, 1.60554e-24, 0.707107, 3.48787e-16, 1, -3.48787e-16, -0.707107, 4.93259e-16, 0.707107, 0, 0, 0)
+transform = Transform3D(1, -3.48787e-16, 3.48787e-16, 3.48787e-16, 1, -3.48787e-16, -3.48787e-16, 3.48787e-16, 1, 0, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
-transform = Transform3D(7.07107, 1.60554e-23, 7.07107, 3.48787e-15, 10, -3.48787e-15, -7.07107, 4.93259e-15, 7.07107, 0, 0, 0)
+transform = Transform3D(10, -3.48787e-15, 3.48787e-15, 3.48787e-15, 10, -3.48787e-15, -3.48787e-15, 3.48787e-15, 10, 0, 0, 0)
 shape = SubResource("ConcavePolygonShape3D_opwht")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="MeshInstance3D/StaticBody3D/CollisionShape3D"]
@@ -53,6 +55,13 @@ transform = Transform3D(10, 0, 0, 0, 1, 0, 0, 0, 10, 0, 3.97787e+08, 0)
 material = SubResource("StandardMaterial3D_w2m1p")
 
 [node name="Player" parent="." instance=ExtResource("1_o2s5d")]
-transform = Transform3D(0.707107, 1.60554e-24, 0.707107, 3.48787e-16, 1, -3.48787e-16, -0.707107, 4.93259e-16, 0.707107, 3.2403e-09, 0.623282, 0.0582628)
+transform = Transform3D(0.707107, -4.93259e-16, -0.707107, 3.48787e-16, 1, -3.48787e-16, 0.707107, 1.60554e-24, 0.707107, 3.2403e-09, 0.623282, 0.0582628)
 
 [node name="GridMap" type="GridMap" parent="."]
+
+[node name="NorthWestBall" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, -2.26634e-23, -2.50326e-08, -1.4622e-22, 1, 1.38711e-23, -2.50326e-08, -3.80638e-24, 1, -0.520856, 3.06624, 9.46349)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NorthWestBall"]
+transform = Transform3D(3, 8.72099e-24, 7.50977e-08, -8.72099e-24, 3, 1.14191e-23, -7.50977e-08, -1.14191e-23, 3, 0, 2.07028, 0)
+mesh = SubResource("SphereMesh_pct6f")
