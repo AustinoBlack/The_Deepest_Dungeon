@@ -6,18 +6,19 @@
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_qy6hn"]
 
-[node name="Player" type="RigidBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.500913, 0)
-lock_rotation = true
+[node name="CharacterBody3D" type="CharacterBody3D"]
 script = ExtResource("1_vxxs4")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_0ek5r")
+skeleton = NodePath("../..")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_qy6hn")
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(0.707107, -0.5, 0.5, 2.4663e-16, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 7, 10, 7)
+[node name="Pivot" type="Node3D" parent="."]
+
+[node name="Camera3D" type="Camera3D" parent="Pivot"]
+transform = Transform3D(-0.707107, 0.5, -0.5, 2.4663e-16, 0.707107, 0.707107, 0.707107, 0.5, -0.5, -10, 13, -10)
 projection = 1
-size = 25.476
+size = 25.0
