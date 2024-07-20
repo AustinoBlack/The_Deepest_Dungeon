@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://jq05fwjs3fb3"]
 
-[ext_resource type="Material" uid="uid://jp5keouiinvf" path="res://Materials/floor_material.tres" id="1_0ld8u"]
+[ext_resource type="Material" uid="uid://jp5keouiinvf" path="res://Assets/Materials/floor_material.tres" id="1_0ld8u"]
 [ext_resource type="PackedScene" uid="uid://ccdtnjp2beosc" path="res://Scenes/Characters/player.tscn" id="2_nf81x"]
-[ext_resource type="Material" uid="uid://dlwskmyvoncql" path="res://Materials/wall_material.tres" id="2_rmfda"]
+[ext_resource type="Material" uid="uid://dlwskmyvoncql" path="res://Assets/Materials/wall_material.tres" id="2_rmfda"]
 
 [node name="world" type="Node3D"]
 
