@@ -4,6 +4,7 @@ extends CharacterBody3D
 @onready var visuals = $visuals
 
 const SPEED = 2
+const RUN_SPEED = 5
 const JUMP_VELOCITY = 4.5
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
@@ -15,6 +16,8 @@ var running = false
 func _ready():
 	animation_player.set_blend_time("idle", "walk", 0.2)
 	animation_player.set_blend_time("walk", "idle", 0.2)
+	animation_player.set_blend_time("run", "walk", 0.2)
+	animation_player.set_blend_time("walk", "run", 0.2)
 
 func _physics_process(delta):
 	# Add the gravity.
@@ -30,14 +33,27 @@ func _physics_process(delta):
 	var input_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
 	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	if direction:
-		velocity.x = direction.x * SPEED
-		velocity.z = direction.z * SPEED
+		if Input.is_action_pressed("Sprint"):
+			velocity.x = direction.x * RUN_SPEED
+			velocity.z = direction.z * RUN_SPEED
+			
+			if !running:
+				running = true
+				animation_player.play("run")
+		else:
+			velocity.x = direction.x * SPEED
+			velocity.z = direction.z * SPEED
+			
+			if running:
+				running = false
+				animation_player.play("walk")
+				
+			if !walking:
+				walking = true
+				animation_player.play("walk")
 		
 		visuals.rotation.y = lerp_angle(visuals.rotation.y, atan2(-direction.x, -direction.z), delta * 10)
 		
-		if !walking:
-			walking = true
-			animation_player.play("walk")
 		
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
@@ -45,6 +61,10 @@ func _physics_process(delta):
 		
 		if walking:
 			walking = false
+			animation_player.play("idle")
+		
+		elif running:
+			running = false
 			animation_player.play("idle")
 
 	move_and_slide()
