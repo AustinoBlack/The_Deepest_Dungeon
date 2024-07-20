@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="The_Deepest_Dungeon"
-run/main_scene="res://Scenes/Levels/Level_Test.tscn"
+run/main_scene="res://Scenes/Levels/Test_Level.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -25,7 +25,7 @@ window/size/mode=2
 
 move_forward={
 "deadzone": 0.5,
-"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":87,"key_label":0,"unicode":0,"echo":false,"script":null)
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":87,"physical_keycode":87,"key_label":87,"unicode":0,"echo":false,"script":null)
 ]
 }
 move_backward={

@@ -1,40 +1,49 @@
 extends CharacterBody3D
 
-@onready var camrig = $Pivot
-@onready var camera = $Pivot/Camera3D
-var mouse_sensitivity := 0.001
-var SPEED = 5
+@onready var animation_player = $visuals/player/AnimationPlayer
+@onready var visuals = $visuals
 
-# Called when the node enters the scene tree for the first time.
+const SPEED = 2
+const JUMP_VELOCITY = 4.5
+
+# Get the gravity from the project settings to be synced with RigidBody nodes.
+var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
+
+var walking = false
+
 func _ready():
-	camrig.set_as_top_level(true)
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	animation_player.set_blend_time("idle", "walk", 0.2)
+	animation_player.set_blend_time("walk", "idle", 0.2)
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	# Press Esc and mouse will appear again.
-	if Input.is_action_just_pressed("ui_cancel"):
-		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-
-func _unhandled_input(event: InputEvent):
-	if event is InputEventMouseMotion:
-		pass
-		
 func _physics_process(delta):
-	var input_dir = Input.get_vector("move_backward", "move_forward", "move_left", "move_right")
+	# Add the gravity.
+	if not is_on_floor():
+		velocity.y -= gravity * delta
+
+	# Handle jump.
+	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
+		velocity.y = JUMP_VELOCITY
+
+	# Get the input direction and handle the movement/deceleration.
+	# As good practice, you should replace UI actions with custom gameplay actions.
+	var input_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
 	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	if direction:
-		velocity.x = direction.x  * SPEED
+		velocity.x = direction.x * SPEED
 		velocity.z = direction.z * SPEED
-		$MeshInstance3D.look_at(position * direction, Vector3.UP)
+		
+		visuals.look_at(direction + position)
+		
+		if !walking:
+			walking = true
+			animation_player.play("walk")
+		
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		velocity.z = move_toward(velocity.z, 0, SPEED)
-	
-	move_and_slide()
-	camera_follow_player()
+		
+		if walking:
+			walking = false
+			animation_player.play("idle")
 
-func camera_follow_player():
-	var player_pos = global_transform.origin
-	camrig.global_transform.origin = player_pos
+	move_and_slide()
