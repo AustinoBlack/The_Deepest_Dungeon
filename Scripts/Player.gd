@@ -10,6 +10,7 @@ const JUMP_VELOCITY = 4.5
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 var walking = false
+var running = false
 
 func _ready():
 	animation_player.set_blend_time("idle", "walk", 0.2)
@@ -32,7 +33,7 @@ func _physics_process(delta):
 		velocity.x = direction.x * SPEED
 		velocity.z = direction.z * SPEED
 		
-		visuals.look_at(direction + position)
+		visuals.rotation.y = lerp_angle(visuals.rotation.y, atan2(-direction.x, -direction.z), delta * 10)
 		
 		if !walking:
 			walking = true
