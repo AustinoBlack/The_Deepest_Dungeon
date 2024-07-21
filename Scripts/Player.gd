@@ -2,16 +2,20 @@ extends CharacterBody3D
 
 @onready var animation_player = $visuals/player/AnimationPlayer
 @onready var visuals = $visuals
+@onready var camera = $Pivot/Camera3D
 
+# Movement Variables
 const SPEED = 2
 const RUN_SPEED = 5
 const JUMP_VELOCITY = 4.5
-
+var walking = false
+var running = false
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
-var walking = false
-var running = false
+# Camera variables
+var rayorigin = Vector3()
+var rayend = Vector3()
 
 func _ready():
 	animation_player.set_blend_time("idle", "walk", 0.2)
@@ -28,10 +32,21 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
 
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
+	# Handle Movement
 	var input_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
 	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	
+	#look at cursor
+	var space_state = get_world_3d().direct_space_state
+	var mouse_position = get_viewport().get_mouse_position()
+	rayorigin = camera.project_ray_origin(mouse_position)
+	rayend = rayorigin + camera.project_ray_normal(mouse_position) * 2000
+	var query = PhysicsRayQueryParameters3D.create(rayorigin, rayend);
+	var intersection = space_state.intersect_ray(query)
+	if not intersection.is_empty():
+		var pos = intersection.position
+		#visuals.look_at(Vector3(pos.x, pos.y, pos.z), Vector3(0, 1, 0))
+
 	if direction:
 		if Input.is_action_pressed("Sprint"):
 			velocity.x = direction.x * RUN_SPEED
